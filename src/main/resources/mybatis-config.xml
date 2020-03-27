@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!--MYBATIS全局配置-->
+<configuration>
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+<!--   设置别名 可在sql映射文件mapper中使用改别名替换 整个name-->
+    <typeAliases>
+        <package name="mhj.first.web.bean"/>
+<!--        <typeAlias type="mhj.first.web.bean" alias="bean"/>-->
+    </typeAliases>
+    <plugins>
+<!--        引入分页插件-->
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+<!--            分页插件的配置-->
+<!--            分页参数合理化-->
+            <property name="reasonable" value="true"/>
+        </plugin>
+
+    </plugins>
+    
+</configuration>

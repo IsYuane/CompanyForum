@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mhj.first.web.mapper.TopicMapper" >
+<!--    主页信息呈现-->
+    <resultMap id="Topics" type="mhj.first.web.bean.Topic">
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="emp_id" property="empId" jdbcType="INTEGER" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <!--    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />-->
+        <result column="title" property="title" jdbcType="VARCHAR" />
+        <result column="tab_id" property="tabId" jdbcType="TINYINT" />
+        <result column="count_replies" property="countReplies" jdbcType="INTEGER" />
+        <association property="employee" javaType="mhj.first.web.bean.Employee">
+            <id column="emp_id" property="empId" jdbcType="INTEGER" />
+            <result column="emp_name" property="empName" jdbcType="VARCHAR" />
+        </association>
+        <association property="tab" javaType="mhj.first.web.bean.Tab">
+            <id column="id" property="id" jdbcType="INTEGER" />
+            <result column="tab_name" property="tabName" jdbcType="VARCHAR" />
+        </association>
+    </resultMap>
+<!--    详细主题-->
+    <resultMap id="TopicInfo" type="mhj.first.web.bean.Topic">
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="emp_id" property="empId" jdbcType="INTEGER" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <!--    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />-->
+        <result column="title" property="title" jdbcType="VARCHAR" />
+        <result column="content" property="content" jdbcType="LONGVARCHAR" />
+        <result column="tab_id" property="tabId" jdbcType="TINYINT" />
+        <result column="count_replies" property="countReplies" jdbcType="INTEGER" />
+        <association property="employee" javaType="mhj.first.web.bean.Employee">
+            <id column="emp_id" property="empId" jdbcType="INTEGER" />
+            <result column="emp_name" property="empName" jdbcType="VARCHAR" />
+        </association>
+    </resultMap>
+
+    <select id="getTopics" resultMap="Topics">
+        select topic.id,topic.emp_id,topic.create_time,topic.title,topic.tab_id,employee.emp_name,
+    tab.tab_name,count(reply.id) as count_replies from topic LEFT JOIN employee on  topic.emp_id = employee.emp_id
+	LEFT JOIN tab on tab.id=topic.tab_id LEFT JOIN reply on topic.id=reply.topic_id
+	group by topic.id order by topic.id desc ;
+    </select>
+
+    <select id="getTopicsOfTab" resultMap="Topics">
+        select topic.id,topic.emp_id,topic.create_time,topic.title,topic.tab_id,employee.emp_name,
+    tab.tab_name,count(reply.id) as count_replies from topic LEFT JOIN employee on  topic.emp_id = employee.emp_id
+	LEFT JOIN tab on tab.id=topic.tab_id LEFT JOIN reply on topic.id=reply.topic_id where tab.id = #{id}
+	group by topic.id order by topic.id desc ;
+    </select>
+
+    <insert id="addTopic" parameterType="mhj.first.web.bean.Topic" >
+    insert into topic (emp_id, create_time,
+       title,
+      tab_id, content)
+    values ( #{empId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
+      #{title,jdbcType=VARCHAR},
+      #{tabId,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR})
+  </insert>
+
+    <select id="getTopic" resultMap="TopicInfo">
+    select topic.* ,employee.emp_name
+    from topic,employee
+    where topic.emp_id = employee.emp_id and topic.id=#{id}
+    </select>
+</mapper>

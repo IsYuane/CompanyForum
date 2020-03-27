@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+        ">
+
+
+    <!-- 包扫描器：spring 容器它会去扫描 mhj.first.javaee 中所有的类，将用 到@Repository、@Service、@Controller 三个注解其中一个 的 javabean 标识成 spring 组件，实例化这些组件，并且会将这些组件装
+到一个类似于 HashMap 中 HashMap<String,Object> map = new HashMap<String,Object>(); map.put("jdbcDao",JdbcDao 对象) map.put("myBatisDao",MyBatisDao 对象) map.put("jdbcService",JdbcService 对象) -->
+    <context:component-scan base-package="mhj.first.web">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <context:property-placeholder location="classpath:db.properties"/>
+
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" >
+        <!--数据库驱动 -->
+        <property name="jdbcUrl" value="${jdbc.jdbcUrl}"/><!--连接数据库的 url -->
+        <property name="driverClass" value="${jdbc.driverClass}"/>  <!--链接驱动-->
+        <property name="user" value="${jdbc.user}"/> <!--连接数据库的用户名 -->
+        <property name="password" value="${jdbc.password}"/><!--连接数据库的密码 -->
+    </bean>
+
+    <!--mybatis 配置，此时，可以不需要 mybatis_config.xml-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+        <property name="dataSource" ref="dataSource"/>
+        <property name="mapperLocations" value="classpath:mappers/*.xml"/>
+    </bean>
+    <!--扫描 mybatis 定义的 mapper 类 扫描到后会向 spring 容器中注册 mapper 类对 象-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+<!--        扫描所有的dao接口到ioc容器-->
+        <property name="basePackage" value="mhj.first.web.mapper"/>
+    </bean>
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <constructor-arg name="executorType" value="BATCH"/>
+    </bean>
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean> <!-- 配置事务特性 -->
+
+    <aop:config> <!-- 收集你要拦截的类 -->
+        <aop:pointcut expression="execution(* mhj.first.web.service.*Service.*(..))"
+                      id="txPoint"/> <!-- 事务切入点 -->
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="txPoint"/><!--        配置事物增强-->
+    </aop:config>
+    <!--    配置事务增强，事务如何切入-->
+    <tx:advice id="txAdvice">
+        <tx:attributes>
+            <!--    所有方法都是事务方法-->
+            <tx:method name="*"/>
+            <!--    以get开始的所有方法都只读-->
+            <tx:method name="get*" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
+</beans>

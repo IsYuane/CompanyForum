@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    <!--配置自动扫描的包-->
+
+    <context:component-scan base-package="mhj.first.web.controller"/>
+
+    <context:property-placeholder location="classpath:db.properties"/>
+
+    <!--配置视图解析器，方便页面返回  -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/views/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+    <!-- 文件上传 -->
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- 设置上传文件的最大尺寸为5MB -->
+        <property name="maxUploadSize" value="${maxUploadSize}"/>
+    </bean>
+<!--&lt;!&ndash;    文件上传&ndash;&gt;-->
+<!--    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">-->
+<!--&lt;!&ndash;上传文件大小限制&ndash;&gt;-->
+<!--        <property name="maxUploadSize">-->
+<!--            <value>10485760</value>-->
+<!--        </property>-->
+<!--&lt;!&ndash;        请求的编码格式和jsp页面一样&ndash;&gt;-->
+<!--        <property name="defaultEncoding">-->
+<!--            <value>UTF-8</value>-->
+<!--        </property>-->
+<!--    </bean>-->
+<!--    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">-->
+<!--        &lt;!&ndash; 设定默认编码 &ndash;&gt;-->
+<!--        <property name="defaultEncoding" value="UTF-8"></property>-->
+<!--        &lt;!&ndash; 设定文件上传的最大值为5MB，5*1024*1024 &ndash;&gt;-->
+<!--        <property name="maxUploadSize" value="5242880"></property>-->
+<!--        &lt;!&ndash; 设定文件上传时写入内存的最大值，如果小于这个参数不会生成临时文件，默认为10240 &ndash;&gt;-->
+<!--        <property name="maxInMemorySize" value="40960"></property>-->
+<!--        &lt;!&ndash; 上传文件的临时路径 &ndash;&gt;-->
+<!--        <property name="uploadTempDir" value="fileUpload/temp"></property>-->
+<!--        &lt;!&ndash; 延迟文件解析 &ndash;&gt;-->
+<!--        <property name="resolveLazily" value="true"/>-->
+<!--    </bean>-->
+
+    <!--两个标准配置  -->
+    <!-- 将springmvc不能处理的请求交给tomcat -->
+    <mvc:default-servlet-handler/>
+    <!-- 能支持springmvc更高级的一些功能，JSR303校验，快捷的ajax...映射动态请求
+     并且使@RequestMapping,@RequestParam,@ExceptionHandler这些注解生效，在之前这些都得手动配置才行-->
+    <mvc:annotation-driven/>
+
+    <mvc:resources location="/static/images/" mapping="/images/**" />
+<!--    <mvc:resources location="/static/js/" mapping="/js/**" />-->
+<!--    <mvc:resources location="/static/css/" mapping="/css/**" />-->
+</beans>
