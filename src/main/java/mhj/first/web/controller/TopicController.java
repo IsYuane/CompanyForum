@@ -32,13 +32,13 @@ public class TopicController {
     private final Log log = LogFactory.getLog(getClass());
     @RequestMapping("/topic")
     public ModelAndView forum(HttpSession session) throws FileException {
-        ModelAndView view ;
+        ModelAndView view =new ModelAndView("cate") ;
         Employee employee = (Employee) session.getAttribute("employee");
-        if(employee==null){
-            return new ModelAndView("pleaselogin");
-        }else {
-            view = new ModelAndView("cate");
-        }
+//        if(employee==null){
+//            return new ModelAndView("pleaselogin");
+//        }else {
+//            view = new ModelAndView("cate");
+//        }
 
         List<Topic> topics = topicService.getTopics();
         view.addObject("topics",topics);
@@ -61,7 +61,7 @@ public class TopicController {
         List<Topic> topitcs = topicService.getTopicsOfTab(tabId);
         Employee employee = (Employee) session.getAttribute("employee");
         if(employee==null){
-            return new ModelAndView("pleaselogin");
+            return new ModelAndView("/pleaselogin.jsp");
         }else {
             modelAndView.addObject("topics",topitcs);
             modelAndView.addObject("employee",employee);
@@ -71,13 +71,9 @@ public class TopicController {
     }
     @RequestMapping(value = "/topic/add" ,method = RequestMethod.POST)
     public ModelAndView addTopic(HttpServletRequest request , HttpSession session){
-        ModelAndView view ;
+        ModelAndView view = new ModelAndView("redirect:/topic"); ;
         Employee employee = (Employee) session.getAttribute("employee");
-        if(employee==null){
-            return new ModelAndView("pleaselogin");
-        }else {
-            view = new ModelAndView("redirect:/topic");
-        }
+
         Integer empId = employee.getEmpId();
         String title = request.getParameter("title");
         String content = request.getParameter("content");

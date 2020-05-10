@@ -27,6 +27,6 @@ public class MainController {
     @RequestMapping("/logOut")
     public String logOut(HttpSession session){
         session.removeAttribute("employee");
-        return "pleaselogin";
+        return "redirect:/";
     }
 }

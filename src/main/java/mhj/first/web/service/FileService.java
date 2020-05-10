@@ -18,6 +18,12 @@ public class FileService {
     FileMapper fileMapper;
     public void uploadFile (MultipartFile file , Employee employee) throws Exception {
         String newfilename =employee.getEmpName()+"_"+file.getOriginalFilename();
+        for (History history:fileMapper.getHistories()
+             ) {
+            if(newfilename.equals(history.getFilepath())){
+                return;
+            }
+        }
         File newfile = new File(FileUtil.getUpLoadFilePath() + newfilename);
         History history = new History();
         history.setEid(employee.getEmpId());
@@ -37,7 +43,9 @@ public class FileService {
 
     public void deleteFile(Integer hid) throws Exception {
         History history = this.selectHistoryByHid(hid);
-        System.out.println(history.toString());
+        if(history==null){
+            return;
+        }
         File file = new File(FileUtil.getUpLoadFilePath()+history.getFilepath());
         if (file.exists()) {
             file.delete();

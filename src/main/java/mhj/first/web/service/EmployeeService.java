@@ -69,7 +69,7 @@ public class EmployeeService {
 
     public Msg login(String userName, String password, HttpSession session) {
         Employee employee =employeeMapper.getUser(userName,password);
-        Assert.notNull(employee,"用户或密码错误");
+        Assert.notNull(employee,"用户或者密码错误");
         session.setAttribute("employee",employee);
         return Msg.success();
     }

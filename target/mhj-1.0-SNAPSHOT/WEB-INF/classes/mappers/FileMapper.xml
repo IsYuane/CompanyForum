@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mhj.first.web.mapper.FileMapper" >
+
+    <insert id="insertHistory" parameterType="mhj.first.web.bean.History">
+        INSERT INTO history(hid, eid, type, filepath,  filesize)
+        VALUES (#{hid}, #{eid}, #{type}, #{filepath}, #{filesize})
+    </insert>
+    <select id="selectHistoryByHid" resultType="mhj.first.web.bean.History">
+        select hid,eid,type,filepath,filesize from history where hid = #{hid}
+    </select>
+    <select id="getHistories" resultType="mhj.first.web.bean.History">
+        select hid,eid,type,filepath,filesize from history
+    </select>
+    <delete id="deleteFile" parameterType="java.lang.Integer" >
+    delete from history
+    where hid = #{hid,jdbcType=INTEGER}
+  </delete>
+
+</mapper>

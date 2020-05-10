@@ -165,13 +165,13 @@ public class EmployeeController {
 //        //封装了详细的分页信息，包括查询数据，连续显示5页
 //        PageInfo page = new PageInfo(emps,5);
 //        model.addAttribute("pageInfo",page);
-        Employee employee= (Employee) session.getAttribute("employee");
-        if (employee==null){
-            return "pleaselogin";
-        }
-        if (employee.getLevel()==0){
-            return "redirect:/topic";
-        }
+//        Employee employee= (Employee) session.getAttribute("employee");
+//        if (employee==null){
+//            return "pleaselogin";
+//        }
+//        if (employee.getLevel()==0){
+//            return "redirect:/topic";
+//        }
         List<History> histories = fileService.getHistories();
         model.addAttribute("histories",histories);
         return "list";

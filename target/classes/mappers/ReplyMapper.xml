@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mhj.first.web.mapper.ReplyMapper" >
+    <resultMap id="replayAndEmp" type="mhj.first.web.bean.Reply">
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="topic_id" property="topicId" jdbcType="INTEGER" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="reply_emp_id" property="replyEmpId" jdbcType="INTEGER" />
+        <result column="content" property="content" jdbcType="LONGVARCHAR" />
+        <association property="employee" javaType="mhj.first.web.bean.Employee">
+            <id column="emp_id" property="empId" jdbcType="INTEGER" />
+            <result column="emp_name" property="empName" jdbcType="VARCHAR" />
+        </association>
+
+    </resultMap>
+    <select id="getReplies" resultMap="replayAndEmp">
+    select reply.*,employee.emp_name
+    from reply,employee
+    where reply.reply_emp_id=employee.emp_id and reply.topic_id = #{topicId}
+    order by create_time ASC ;
+    </select>
+    <select id="getRepliesNum" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+    select count(id)
+    from reply
+    where topic_id = #{id}
+    </select>
+    <insert id="add" parameterType="mhj.first.web.bean.Reply">
+        insert into reply (id,topic_id,reply_emp_id,content,create_time)
+        values (#{id},#{topicId},#{replyEmpId},#{content}, #{createTime})
+    </insert>
+</mapper>

@@ -1,0 +1,229 @@
+html{
+    width: 100%;
+    height: 100%;
+}
+body{
+    background-color:#ebccd1;
+    width: 100%;
+    height: 100%;
+}
+
+
+
+
+.loginform{
+    position:absolute;
+    margin-top:250px;
+    margin-bottom:0px;
+    margin-right:0px;
+    margin-left:1240px;
+    height:250px;
+    width:410px;
+    background-color: white;
+    padding: 25px;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.Chineseword{
+    position:absolute;
+    margin-top:125px;
+    margin-bottom:0px;
+    margin-right:0px;
+    margin-left:60px;
+    font-size:40px;
+    color:white;
+}
+
+.Englishword{
+    position:absolute;
+    margin-top:480px;
+    margin-bottom:0px;
+    margin-right:0px;
+    margin-left:60px;
+    font-size:60px;
+    color:white;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.form{
+    vertical-align: middle;
+    min-height: 400px;
+    max-width: 450px;
+    padding: 15px;
+    margin: 0 auto;
+}
+
+.main_body{
+    /* position: absolute;
+    left: 50%;
+    top: 46%;
+    -webkit-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%); */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -190px;
+    margin-top: -270px;
+}
+.main_body>h2{
+    text-align: center;
+    color: #666666;
+    margin-bottom: 30px;
+}
+footer{
+    position: absolute;
+    _position: static;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    width: 100%;
+}
+.checkbox{
+    color: #666;
+    font-weight: 500;
+    float: left;
+    margin-top: 0;
+}
+.sign_in>.form-group{
+    margin-bottom: 20px;
+}
+.fail_sign{
+    float: right;
+    margin-bottom: 10px;
+}
+.fail_sign>a{
+    cursor: pointer;
+}
+.fail_sign>span{
+    color: rgb(141, 137, 137);
+}
+.sign_in{
+    vertical-align: middle;
+    min-height: 400px;
+    max-width: 450px;
+    padding: 15px;
+    margin: 0 auto;
+
+}
+.sign_up{
+    vertical-align: middle;
+    min-height: 400px;
+    max-width: 450px;
+    padding: 15px;
+    margin: 0 auto;
+
+}
+.form-group>label{
+    color: #666;
+    font-weight: 500;
+}
+.sign_up>.form-group{
+    margin-bottom: 2px;
+}
+/* .sign_up>.checkbox,.sign_up>.fail_sign{
+    margin: 14px 0;
+} */
+.sign_up>.checkbox{
+    float: none;
+    text-align: center;
+    margin: 10px 0;
+}
+.error{
+    color: #d41212;
+    font-size: 12px;
+}
+.error_tip:focus {
+    border-color: #e0171f;
+}
+
+.tip{
+    display: none;
+    width: 130px;
+    height: 40px;
+    position: absolute;
+    left:50%;
+    top: 34%;
+    z-index: 999;
+    -webkit-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+    background: rgba(48, 46, 46, 0.685);
+    color: #ffffff;
+    font-size: 12px;
+    text-align: center;
+    line-height: 40px;
+}
+.dotting {
+    display: inline-block;
+    width: 10px;
+    min-height: 2px;
+    padding-right: 2px;
+    border-left: 2px solid currentColor; border-right: 2px solid currentColor;
+    background-color: currentColor; background-clip: content-box;
+    box-sizing: border-box;
+    animation: dot 1s infinite step-start both;
+    *zoom: expression(this.innerHTML = '...'); /* IE7 */
+}
+.dotting:before { content: '...'; } /* IE8 */
+.dotting::before { content: ''; }
+:root .dotting { margin-left: 2px; padding-left: 2px; } /* IE9+ */
+
+@keyframes dot {
+    25% { border-color: transparent; background-color: transparent; }          /* 0个点 */
+    50% { border-right-color: transparent; background-color: transparent; }    /* 1个点 */
+    75% { border-right-color: transparent; }                                   /* 2个点 */
+}
+
+/* 相关动画 */
+/* 淡入 */
+.a-fadein{-webkit-animation:fadein .8s;-moz-animation:fadein .8s;-ms-animation:fadein .8s;animation:fadein .8s;}
+/* 淡出 */
+.a-fadeout{-webkit-animation:fadeout .8s;-moz-animation:fadeout .8s;-ms-animation:fadeout .8s;animation:fadeout .8s;}
+/* 淡入 */
+@-webkit-keyframes fadein{
+    0%{opacity:0;}
+    100%{opacity:1;}
+}
+@-moz-keyframes fadein{
+    0%{opacity:0;}
+    100%{opacity:1;}
+}
+@-ms-keyframes fadein{
+    0%{opacity:0;}
+    100%{opacity:1;}
+}
+@keyframes fadein{
+    0%{opacity:0;}
+    100%{opacity:1;}
+}
+/* 淡出 */
+@-webkit-keyframes fadeout{
+    0%{opacity:1;}
+    100%{opacity:0;}
+}
+@-moz-keyframes fadeout{
+    0%{opacity:1;}
+    100%{opacity:0;}
+}
+@-ms-keyframes fadeout{
+    0%{opacity:1;}
+    100%{opacity:0;}
+}
+@keyframes fadeout{
+    0%{opacity:1;}
+    100%{opacity:0;}
+}

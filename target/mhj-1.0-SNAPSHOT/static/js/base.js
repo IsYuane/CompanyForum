@@ -17,6 +17,6 @@ $(function () {
 
     var width = $(window).width();
     if (width > 992) {
-        $("body").append("<script src=" + getProPath() + "/js/canvas-nest.min.js></script>");
+        $("body").append("<script src=" + getProPath() + "/static/js/canvas-nest.min.js></script>");
     }
 });

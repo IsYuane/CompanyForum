@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mhj.first.web.mapper.TabMapper" >
+<resultMap id="Topics" type="mhj.first.web.bean.Topic">
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="emp_id" property="empId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+<!--    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />-->
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="click" property="click" jdbcType="INTEGER" />
+    <result column="tab_id" property="tabId" jdbcType="TINYINT" />
+    <result column="count_replies" property="countReplies" jdbcType="INTEGER" />
+    <association property="employee" javaType="mhj.first.web.bean.Employee">
+        <id column="emp_id" property="empId" jdbcType="INTEGER" />
+        <result column="emp_name" property="empName" jdbcType="VARCHAR" />
+    </association>
+    <association property="tab" javaType="mhj.first.web.bean.Tab">
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="tab_name" property="tabName" jdbcType="VARCHAR" />
+    </association>
+</resultMap>
+
+    <select id="getTabs" resultType="mhj.first.web.bean.Tab">
+        select * from tab
+    </select>
+
+    <select id="get" resultType="mhj.first.web.bean.Tab">
+        select * from tab where tab_name_en = #{tabNameEm}
+    </select>
+
+</mapper>

@@ -25,10 +25,7 @@ public class FileController {
     FileService fileService;
     @RequestMapping("fileup")
     public String uploadFile(@RequestParam("file") MultipartFile[] files, HttpSession session) throws Exception, FileException {
-        if(files==null){
-            throw new FileException("上传文件失败，未获取到上传内容！");
-
-        }
+        if(files==null) throw new FileException("上传文件失败，未获取到上传内容！");
         Employee employee = (Employee) session.getAttribute("employee");
         for (MultipartFile file : files) {
             fileService.uploadFile(file,employee);
@@ -41,7 +38,6 @@ public class FileController {
             throw new FileException("下载失败：参数为空");
         }
         History history = fileService.selectHistoryByHid(hid);
-        System.out.println(history.toString());
         String filepath = FileUtil.getUpLoadFilePath()+history.getFilepath();
         File file = new File(filepath);
         response.setHeader("Accept-Ranges","bytes");

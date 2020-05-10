@@ -6,6 +6,10 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
+<%
+    //        pageContext.setAttribute("APP_PATH",request.getContextPath());
+    pageContext.setAttribute("APP_PATH",request.getContextPath());
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -156,7 +160,7 @@
         var i =3;
         function djs() {
             if(i==0){
-                window.location.href = "${basePath }index.jsp"
+                window.location.href = "${APP_PATH}/index.jsp"
             }
             document.getElementById("num").innerText=i--;
             setTimeout("djs()",1000);
