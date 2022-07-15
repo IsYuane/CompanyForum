@@ -24,7 +24,7 @@
       <dependency>
           <groupId>com.fasterxml.jackson.core</groupId>
           <artifactId>jackson-databind</artifactId>
-          <version>2.8.8</version>
+          <version>2.12.6.1</version>
       </dependency>
       <dependency>
           <groupId>commons-fileupload</groupId>
@@ -81,7 +81,7 @@
       <dependency>
           <groupId>com.fasterxml.jackson.core</groupId>
           <artifactId>jackson-databind</artifactId>
-          <version>2.8.8</version>
+          <version>2.12.6.1</version>
       </dependency>
       <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-validator jsr303校验
       tomcat 中只有7以上版本才支持新的EL表达式 否则需要更新lib包的EL
